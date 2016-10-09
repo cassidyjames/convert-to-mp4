@@ -1,0 +1,12 @@
+#! /bin/sh
+# Convert to MP4 using ffmpeg
+
+path=`dirname $1`
+base=`basename "$1"`
+extensionless=`basename "$1" ".${base##*.}"`
+
+ffmpeg -y -i "$1" -c:v libx264 -crf 19 -preset slow -c:a aac -strict experimental -b:a 192k -ac 2 "$path/.$extensionless.mp4" | \
+zenity --width 500 --title "Converting to MP4…" --text "Converting $base to MP4…" --progress --pulsate --auto-close
+mv "$path/.$extensionless.mp4" "$path/$extensionless.mp4" &&
+notify-send "Converted to MP4" "$extensionless.mp4 has been saved" -i "video-x-generic" ||
+notify-send "Unable to convert to MP4" "$base is unchanged" -i error
