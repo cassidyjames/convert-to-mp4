@@ -1,0 +1,6 @@
+[Contractor Entry]
+Name=Convert to MP4
+Icon=video-x-generic
+Description=Convert selected video to MP4 format
+MimeType=video
+Exec=convert-to-mp4 %f
